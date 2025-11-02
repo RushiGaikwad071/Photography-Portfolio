@@ -1,0 +1,47 @@
+{% load static %}
+
+<section id="about" class="relative py-20 bg-gray-900 text-gray-100 overflow-hidden">
+  <div class="absolute inset-0">
+    <div class="opacity-20 bg-[url('{% static "core/images/about/about-bg.jpg" %}')] bg-cover bg-center"></div>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+    <!-- 📸 Photographer Portrait -->
+    <div class="flex justify-center">
+      <img src="{% static 'core/images/about/about-me.jpg' %}"
+           alt="Photographer Portrait"
+           class="rounded-2xl shadow-2xl w-[90%] md:w-[80%] object-cover border border-gray-700">
+    </div>
+
+    <!-- 🧠 About Content -->
+    <div>
+      <h2 class="text-4xl font-bold mb-6 text-yellow-400">Behind the Lens</h2>
+      <p class="text-gray-300 leading-relaxed mb-8">
+        I’m <strong class="text-white">Pratshant</strong>, a passionate photographer who believes every moment tells a story worth preserving.  
+        My journey began with curiosity and light — now it’s about capturing emotions, not just images.  
+        From weddings and portraits to landscapes and fine art, I aim to create photographs that connect deeply with people.
+      </p>
+
+      <!-- 🎯 Highlights -->
+      <div class="grid sm:grid-cols-3 gap-6 mb-10">
+        <div class="bg-gray-800 rounded-xl p-4 text-center shadow-md hover:bg-gray-700 transition">
+          <h3 class="text-xl font-bold text-yellow-400">🌍 5+ Years</h3>
+          <p class="text-sm text-gray-400">Experience</p>
+        </div>
+        <div class="bg-gray-800 rounded-xl p-4 text-center shadow-md hover:bg-gray-700 transition">
+          <h3 class="text-xl font-bold text-yellow-400">🎞️ 100+</h3>
+          <p class="text-sm text-gray-400">Projects</p>
+        </div>
+        <div class="bg-gray-800 rounded-xl p-4 text-center shadow-md hover:bg-gray-700 transition">
+          <h3 class="text-xl font-bold text-yellow-400">🏆 10+</h3>
+          <p class="text-sm text-gray-400">Awards</p>
+        </div>
+      </div>
+
+      <a href="/portfolio/"
+         class="inline-block bg-yellow-400 text-gray-900 px-6 py-3 rounded-full font-semibold hover:bg-yellow-300 transition">
+        View My Work
+      </a>
+    </div>
+  </div>
+</section>

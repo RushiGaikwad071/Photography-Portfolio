@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}{{ gallery.title }} — Photography{% endblock %}
+{% block content %}
+
+<!-- Hero Section with Background Music -->
+<section class="relative py-10 bg-gray-900 text-white">
+  <div class="container mx-auto px-4 text-center">
+    <h1 class="text-4xl font-bold mb-3">{{ gallery.title }}</h1>
+    {% if gallery.description %}
+      <p class="text-gray-300 max-w-2xl mx-auto">{{ gallery.description }}</p>
+    {% endif %}
+    {% if gallery.background_music %}
+      <audio id="bg-music" src="{{ gallery.background_music.url }}" autoplay loop></audio>
+      <button id="music-toggle" class="mt-4 bg-yellow-500 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition">
+        ⏸ Pause Music
+      </button>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Image Grid -->
+<section class="py-10 bg-gray-50 dark:bg-gray-900">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {% for photo in photos %}
+        <div class="group relative overflow-hidden rounded-lg shadow">
+          <a href="{{ photo.image.url }}" data-glightbox="title: {{ photo.title }}">
+            <img src="{{ photo.image.url }}" alt="{{ photo.title }}"
+                 class="w-full h-72 object-cover transform group-hover:scale-110 transition duration-500">
+            <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+              <h3 class="text-white text-lg font-semibold">{{ photo.title }}</h3>
+            </div>
+          </a>
+        </div>
+      {% empty %}
+        <p class="text-center text-gray-500 col-span-full">No photos yet in this gallery.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const music = document.getElementById('bg-music');
+  const btn = document.getElementById('music-toggle');
+  if (btn && music) {
+    btn.addEventListener('click', function() {
+      if (music.paused) {
+        music.play();
+        btn.textContent = '⏸ Pause Music';
+      } else {
+        music.pause();
+        btn.textContent = '▶️ Play Music';
+      }
+    });
+  }
+});
+</script>
+
+{% endblock %}

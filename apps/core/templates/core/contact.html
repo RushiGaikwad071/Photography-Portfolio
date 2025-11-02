@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Contact — Photography{% endblock %}
+{% block content %}
+<section class="py-12 bg-gray-100 dark:bg-gray-900">
+  <div class="container mx-auto px-4 max-w-2xl">
+    <h2 class="text-3xl font-bold mb-6 text-center">Get in Touch</h2>
+    <p class="text-center text-gray-600 dark:text-gray-300 mb-8">
+      Have questions or want to book a photoshoot? Fill out the form below and I’ll reply shortly.
+    </p>
+    <form method="post" class="bg-white dark:bg-gray-800 shadow-md rounded p-6 space-y-4">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      {% for field in form %}
+        <div>
+          <label class="block text-sm font-medium mb-1">{{ field.label }}</label>
+          {{ field }}
+          {% for error in field.errors %}
+            <p class="text-red-600 text-sm">{{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endfor %}
+      <button type="submit"
+        class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded transition">
+        Send Message
+      </button>
+    </form>
+
+    {% if messages %}
+      <div class="mt-4">
+        {% for message in messages %}
+          <div class="p-3 bg-green-100 text-green-800 rounded">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

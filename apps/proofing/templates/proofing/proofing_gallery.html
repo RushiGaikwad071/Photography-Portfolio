@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1 class="text-2xl">{{ gallery.title }}</h1>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
+    {% for photo in gallery.photos.all %}
+      <div class="p-1 bg-gray-800 rounded">
+        <img src="{{ photo.image.url }}" class="w-full h-40 object-cover rounded">
+        <div class="mt-2 flex justify-between items-center">
+          <form method="post" action="#" class="inline">
+            {% csrf_token %}
+            <button class="text-sm">♡ Like</button>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

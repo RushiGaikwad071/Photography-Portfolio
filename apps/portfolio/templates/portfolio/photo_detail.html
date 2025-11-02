@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-2xl">{{ photo.title }}</h2>
+    <p class="text-sm text-gray-400">Taken: {{ photo.taken_at }}</p>
+    <img src="{{ photo.image.url }}" alt="{{ photo.title }}" class="w-full my-4 object-contain rounded">
+    <p class="mt-4 text-gray-300">{{ photo.description|linebreaks }}</p>
+
+    {% if photo.raw %}
+      <h3 class="mt-6 text-lg">Before / After</h3>
+      <div id="before-after" class="relative mt-3">
+        <img src="{{ photo.raw.url }}" class="w-full block" alt="raw">
+        <div id="after" style="position:absolute; left:0; top:0; overflow:hidden; width:50%;">
+          <img src="{{ photo.image.url }}" class="w-full block" alt="edited">
+        </div>
+        <div id="handle" style="position:absolute; left:50%; top:0; width:3px; height:100%; background:#fff; cursor:ew-resize;"></div>
+      </div>
+    {% endif %}
+  </div>
+
+  {% block scripts %}
+  <script>
+    (function(){
+      const container = document.getElementById('before-after');
+      if(!container) return;
+      const after = document.getElementById('after');
+      const handle = document.getElementById('handle');
+      let dragging = false;
+      handle.addEventListener('mousedown', ()=> dragging=true);
+      document.addEventListener('mouseup', ()=> dragging=false);
+      document.addEventListener('mousemove', function(e){
+        if(!dragging) return;
+        const rect = container.getBoundingClientRect();
+        let pct = (e.clientX - rect.left) / rect.width * 100;
+        pct = Math.max(0, Math.min(100, pct));
+        after.style.width = pct + '%';
+        handle.style.left = pct + '%';
+      });
+    })();
+  </script>
+  {% endblock %}
+{% endblock %}

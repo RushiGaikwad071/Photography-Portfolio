@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Portfolio — Photography{% endblock %}
+{% block content %}
+
+<section class="py-10 bg-black-50 dark:bg-black-900">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold mb-6 text-center">My Portfolio</h2>
+
+    <!-- Category Filters -->
+    <div class="flex justify-center flex-wrap gap-3 mb-8">
+      <a href="{% url 'portfolio:gallery_list' %}"
+         class="px-4 py-2 rounded {% if not selected_category %}bg-indigo-600 text-white{% else %}bg-gray-200 dark:bg-gray-800 text-gray-700{% endif %}">
+         All
+      </a>
+      {% for c in categories %}
+        <a href="?category={{ c.slug }}"
+           class="px-4 py-2 rounded {% if selected_category == c.slug %}bg-black-600 text-white{% else %}bg-gray-200 dark:bg-gray-800 text-gray-700{% endif %}">
+           {{ c.name }}
+        </a>
+      {% endfor %}
+    </div>
+
+    <!-- Photo Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {% for photo in photos %}
+        <div class="group relative overflow-hidden rounded shadow">
+          <a href="{% url 'portfolio:photo_detail' photo.slug %}">
+            <img src="{{ photo.image.url }}" alt="{{ photo.title }}"
+                 class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500" loading="lazy">
+            <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+              <h3 class="text-white text-lg font-semibold">{{ photo.title }}</h3>
+            </div>
+          </a>
+        </div>
+      {% empty %}
+        <p class="text-gray-500 text-center col-span-full">No photos added yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

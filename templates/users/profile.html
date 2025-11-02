@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="max-w-2xl mx-auto">
+    <h1 class="text-2xl mb-2">{{ user.get_full_name|default:user.username }}</h1>
+    <p>Email: {{ user.email }}</p>
+    <p>Phone: {{ user.phone }}</p>
+    {% if user.thumbnail %}
+      <img src="{{ user.thumbnail.url }}" class="w-32 h-32 object-cover rounded mt-4">
+    {% endif %}
+  </div>
+{% endblock %}
+{% extends "base.html" %}
+{% block content %}
+  <div class="max-w-2xl mx-auto">
+    <h1 class="text-2xl mb-2">{{ user.get_full_name|default:user.username }}</h1>
+    <p>Email: {{ user.email }}</p>
+    <p>Phone: {{ user.phone }}</p>
+    {% if user.thumbnail %}
+      <img src="{{ user.thumbnail.url }}" class="w-32 h-32 object-cover rounded mt-4">
+    {% endif %}
+  </div>
+{% endblock %}

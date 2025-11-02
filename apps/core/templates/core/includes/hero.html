@@ -1,0 +1,25 @@
+{% for p in featured_photos %}
+{% load static %}
+
+<section class="hero-section">
+  <!-- 🎥 Background Video -->
+  <video autoplay muted loop id="heroVideo">
+    <source src="{% static 'core/videos/hero.mp4' %}" type="video/mp4">
+  </video>
+
+  <!-- 🖼️ Fallback Slideshow (if video not loaded) -->
+  <div class="hero-slideshow">
+    <div class="slide" style="background-image: url('{% static "core/images/hero/hero1.jpg" %}')"></div>
+    <div class="slide" style="background-image: url('{% static "core/images/hero/hero2.jpg" %}')"></div>
+    <div class="slide" style="background-image: url('{% static "core/images/hero/hero3.jpg" %}')"></div>
+  </div>
+
+  <!-- ✨ Overlay Text -->
+  <div class="hero-overlay">
+    <h1 class="hero-title">Through My Lens, Every Story Finds Light</h1>
+    <p class="hero-subtitle">Capturing timeless emotions & real stories worldwide.</p>
+    <a href="#booking" class="cta-button">Book a Shoot</a>
+  </div>
+</section>
+
+
