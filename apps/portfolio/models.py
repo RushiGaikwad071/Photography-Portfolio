@@ -47,6 +47,7 @@ class Gallery(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=270, unique=True, blank=True)
     cover_image = models.ImageField(upload_to="gallery_covers/%Y/%m/%d/", blank=True, null=True)
+
     photos = models.ManyToManyField(Photo, blank=True)
     background_music = models.FileField(upload_to="gallery_music/%Y/%m/%d/", blank=True, null=True,
                                         help_text="Upload an MP3 file to play as background music")

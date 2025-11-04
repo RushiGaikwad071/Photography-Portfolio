@@ -15,3 +15,17 @@ def photo_detail(request, slug):
 def gallery_detail(request, slug):
     g = get_object_or_404(Gallery, slug=slug)
     return render(request, "portfolio/gallery_detail.html", {"gallery": g})
+
+def portfolio_view(request):
+    """Portfolio page showing all galleries"""
+    galleries = Gallery.objects.all().order_by("-created_at")
+    return render(request, "portfolio/portfolio.html", {"galleries": galleries})
+
+def gallery_detail(request, slug):
+    """Gallery detail page showing photos inside one gallery"""
+    gallery = get_object_or_404(Gallery, slug=slug)
+    photos = gallery.photos.all().order_by("-created_at")
+    return render(request, "portfolio/gallery_detail.html", {
+        "gallery": gallery,
+        "photos": photos,
+    })

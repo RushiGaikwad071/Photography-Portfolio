@@ -4,8 +4,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Photography Portfolio</title>
+  <title>{% block title %}Photography Portfolio{% endblock %}</title>
+
+  <!-- Main CSS -->
   <link rel="stylesheet" href="{% static 'core/css/main.css' %}">
+
+  <!-- Google Fonts for cinematic look -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- Lightbox -->
+  <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
+
+  <!-- Custom Inline Styles -->
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #0b0e17;
+      color: #fff;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Playfair Display', serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    a:hover {
+      opacity: 0.8;
+    }
+  </style>
+
   <script defer src="{% static 'core/js/main.js' %}"></script>
 </head>
 <body>
