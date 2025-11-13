@@ -19,7 +19,7 @@
   <style>
     body {
       font-family: 'Montserrat', sans-serif;
-      background-color: #0b0e17;
+      background-color: #000000;
       color: #fff;
       margin: 0;
       overflow-x: hidden;
@@ -63,4 +63,12 @@
   </script>
 
 </body>
+
+/* minimal helpers for the BA slider (put in core/css/main.css) */
+.ba-slider { position: relative; user-select: none; }
+.ba-slider img { display:block; height:100%; object-fit:cover; }
+.ba-after img { transform: none; }
+.ba-handle { z-index: 30; width: 4px; background: rgba(255,255,255,0.85); transition: background .15s; }
+.ba-handle:hover { background: rgba(255,255,255,1); }
+
 </html>

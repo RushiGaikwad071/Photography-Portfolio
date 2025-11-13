@@ -24,8 +24,10 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {% for photo in photos %}
         <div class="overflow-hidden rounded-lg group relative">
-          <a href="{{ photo.image.url }}" target="_blank">
-            <img src="{{ photo.image.url }}" alt="{{ photo.title }}" class="w-full h-96 object-cover transform group-hover:scale-110 transition duration-700 ease-in-out">
+          <a href="{{ photo.image.url }}" class="glightbox" data-gallery="gallery-{{ gallery.id }}" data-title="{{ photo.title|escape }}">
+            <img data-src="{{ photo.image.url }}" alt="{{ photo.title|escape }}"
+                 class="w-full h-96 object-cover transform group-hover:scale-110 transition duration-700 ease-in-out lazyload"
+                 loading="lazy">
             <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
               <h3 class="text-white text-lg font-semibold">{{ photo.title }}</h3>
             </div>
@@ -38,7 +40,36 @@
   </div>
 </section>
 
-<script>
+{# BEFORE / AFTER SLIDER: show only for photos that have a raw image #}
+{% if photos %}
+  <section class="py-12">
+    <div class="container mx-auto px-6">
+      <h3 class="text-2xl font-semibold mb-6">Before / After (Retouch)</h3>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        {% for photo in photos %}
+          {% if photo.raw %}
+            <div class="ba-slider-wrapper">
+              <div class="ba-slider relative overflow-hidden rounded-lg" data-init="ba">
+                <img class="w-full block" src="{{ photo.raw.url }}" alt="before {{ photo.title }}">
+                <div class="ba-after absolute inset-0 overflow-hidden" style="width:50%;">
+                  <img class="w-full block" src="{{ photo.image.url }}" alt="after {{ photo.title }}">
+                </div>
+                <div class="ba-handle absolute top-0 bottom-0 w-1 bg-white/80" style="left:50%; cursor:ew-resize;"></div>
+              </div>
+              <div class="flex justify-between mt-2 text-sm text-gray-500">
+                <span>Before</span><span>After</span>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+
+<!-- <script>
 document.addEventListener('DOMContentLoaded', function() {
   const music = document.getElementById('bg-music');
   const btn = document.getElementById('music-toggle');
@@ -54,6 +85,47 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+</script> -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // init any BA sliders
+  document.querySelectorAll('[data-init="ba"]').forEach(function(container){
+    const after = container.querySelector('.ba-after');
+    const handle = container.querySelector('.ba-handle');
+    if(!after || !handle) return;
+
+    let dragging = false;
+
+    const update = (clientX) => {
+      const rect = container.getBoundingClientRect();
+      let pct = (clientX - rect.left) / rect.width * 100;
+      pct = Math.max(0, Math.min(100, pct));
+      after.style.width = pct + '%';
+      handle.style.left = pct + '%';
+    };
+
+    handle.addEventListener('mousedown', ()=> dragging = true);
+    document.addEventListener('mouseup', ()=> dragging = false);
+    document.addEventListener('mousemove', function(e){
+      if(!dragging) return;
+      update(e.clientX);
+    });
+
+    // touch support
+    handle.addEventListener('touchstart', ()=> dragging = true);
+    document.addEventListener('touchend', ()=> dragging = false);
+    document.addEventListener('touchmove', function(e){
+      if(!dragging) return;
+      update(e.touches[0].clientX);
+    });
+
+    // click position support
+    container.addEventListener('click', function(e){
+      update(e.clientX);
+    });
+  });
+});
 </script>
+
 
 {% endblock %}

@@ -2,11 +2,19 @@ from django.shortcuts import render, get_object_or_404
 from .models import Photo, Gallery
 
 def gallery_list(request):
+    """
+    Legacy photo grid listing (individual photos). Keep if needed.
+    """
     qs = Photo.objects.all().order_by("-is_featured", "-created_at")
-    category = request.GET.get("category")
-    if category:
-        qs = qs.filter(categories__slug=category)
-    return render(request, "portfolio/gallery_list.html", {"photos": qs})
+    category_slug = request.GET.get("category")
+    categories = Category.objects.all()
+    if category_slug:
+        qs = qs.filter(categories__slug=category_slug)
+    return render(request, "portfolio/gallery_list.html", {
+        "photos": qs,
+        "categories": categories,
+        "selected_category": category_slug,
+    })
 
 def photo_detail(request, slug):
     p = get_object_or_404(Photo, slug=slug)
