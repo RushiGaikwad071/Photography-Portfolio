@@ -35,8 +35,12 @@
     © {{ now.year }} Your Name — Built with ♥
   </footer>
 
+  <!-- GLightbox (CDN) -->
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-  <script>const lightbox = GLightbox({selector: '.glightbox'});</script>
+
+  <!-- Lazy loader + GLightbox init (local) -->
+  <script src="{% static 'core/js/lazy-and-lightbox.js' %}"></script>
+
   {% block scripts %}{% endblock %}
 </body>
 </html>

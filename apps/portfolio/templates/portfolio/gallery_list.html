@@ -24,14 +24,22 @@
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {% for photo in photos %}
         <div class="group relative overflow-hidden rounded shadow">
-          <a href="{{ photo.image.url }}" class="glightbox" data-gallery="portfolio-photos" data-title="{{ photo.title|escape }}">
-            <img data-src="{{ photo.image.url }}" alt="{{ photo.title|escape }}"
-                 class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500 lazyload"
-                 loading="lazy">
-            <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-              <h3 class="text-white text-lg font-semibold">{{ photo.title }}</h3>
-            </div>
+          <!-- Link that GLightbox will pick up -->
+          <a href="{{ photo.image.url }}" class="glightbox" data-gallery="portfolio-photos" data-title="{{ photo.title|escape }}" data-description="{{ photo.description|default:''|escape }}">
+            <!-- lazy image: data-src only (IntersectionObserver will set the src) -->
+            <img
+              data-src="{{ photo.image.url }}"
+              alt="{{ photo.title|escape }}"
+              loading="lazy"
+              class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500"
+            >
           </a>
+
+          <!-- Overlay with title and download -->
+          <div class="absolute bottom-3 left-3 right-3 flex justify-between items-center opacity-0 group-hover:opacity-100 transition">
+            <div class="bg-black bg-opacity-60 text-white text-sm px-3 py-1 rounded">{{ photo.title }}</div>
+            <a href="{{ photo.image.url }}" download class="bg-white bg-opacity-90 text-black text-sm px-3 py-1 rounded">Download</a>
+          </div>
         </div>
       {% empty %}
         <p class="text-gray-500 text-center col-span-full">No photos added yet.</p>
