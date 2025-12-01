@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Photo, Gallery
+from .models import Photo, Gallery, BeforeAfterSet
 
 def gallery_list(request):
     """
@@ -37,3 +37,7 @@ def gallery_detail(request, slug):
         "gallery": gallery,
         "photos": photos,
     })
+
+def before_after_list(request):
+    sets = BeforeAfterSet.objects.filter(is_active=True)
+    return render(request, "portfolio/before_after_slider.html", {"sets": sets})

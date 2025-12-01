@@ -4,7 +4,7 @@
 
 
 from django.contrib import admin
-from .models import Category, Photo, Gallery
+from .models import Category, Photo, Gallery, BeforeAfterSet
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -25,3 +25,8 @@ class GalleryAdmin(admin.ModelAdmin):
     search_fields = ("title",)
     prepopulated_fields = {"slug": ("title",)}
     filter_horizontal = ("photos",)
+
+@admin.register(BeforeAfterSet)
+class BeforeAfterSetAdmin(admin.ModelAdmin):
+    list_display = ("title", "created_at", "is_active")
+    list_filter = ("is_active", "created_at")

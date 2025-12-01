@@ -77,3 +77,17 @@ def gallery_list(request):
         "portfolio/gallery_list.html",
         {"photos": qs, "categories": categories, "selected_category": category_slug},
     )
+
+class BeforeAfterSet(models.Model):
+    title = models.CharField(max_length=150)
+    before_image = models.ImageField(upload_to="before_after/")
+    after_image = models.ImageField(upload_to="before_after/")
+    description = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return self.title

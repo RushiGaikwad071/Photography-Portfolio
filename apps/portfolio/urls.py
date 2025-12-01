@@ -17,9 +17,13 @@ from . import views
 app_name = "portfolio"
 
 urlpatterns = [
-    path("", views.portfolio_view, name="portfolio"),
     path("", views.portfolio_view, name="gallery_list"),
+
+    # Before/After page
+    path("before-after/", views.before_after_list, name="before_after"),
+
+    # Specific routes
     path("gallery/<slug:slug>/", views.gallery_detail, name="gallery_detail"),
     path("photo/<slug:slug>/", views.photo_detail, name="photo_detail"),
-    path("<slug:slug>/", views.gallery_detail, name="gallery_detail_short"),
 ]
+

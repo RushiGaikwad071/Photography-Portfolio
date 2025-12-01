@@ -11,6 +11,7 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media"
 
+ROOT_URLCONF = "config.urls"
 
 DEBUG = True
 ALLOWED_HOSTS = ["*"]
