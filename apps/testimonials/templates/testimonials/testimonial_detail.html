@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{{ testimonial.name }} — Testimonial{% endblock %}
+{% block content %}
+<section class="py-10">
+  <div class="container mx-auto px-4 max-w-4xl">
+
+    <a href="{% url 'testimonials:list' %}"
+       class="text-sm text-gray-400 hover:underline">
+      ← Back
+    </a>
+
+    <div class="mt-6 grid md:grid-cols-2 gap-8 items-start">
+
+      {% if testimonial.photo %}
+        <div>
+          <img src="{{ testimonial.photo.url }}" alt="{{ testimonial.name }}"
+               class="w-full rounded-2xl shadow-lg object-cover">
+        </div>
+      {% endif %}
+
+      <div>
+        <h1 class="text-3xl font-bold mb-3">“{{ testimonial.short_message }}”</h1>
+
+        <p class="font-semibold text-yellow-400 mb-3">— {{ testimonial.name }}</p>
+
+        {% if testimonial.location or testimonial.wedding_date %}
+          <p class="text-sm text-gray-400 mb-4">
+            {% if testimonial.location %}{{ testimonial.location }}{% endif %}
+            {% if testimonial.wedding_date %} · {{ testimonial.wedding_date|date:"F Y" }}{% endif %}
+          </p>
+        {% endif %}
+
+        <p class="text-gray-200 leading-relaxed whitespace-pre-line">
+          {{ testimonial.full_message }}
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}

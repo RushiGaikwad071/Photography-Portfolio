@@ -16,9 +16,10 @@
       <nav class="space-x-4">
         <a href="{% url 'core:home' %}" class="hover:underline">Home</a>
         <a href="{% url 'portfolio:gallery_list' %}" class="hover:underline">Portfolio</a>
-        <a href="{% url 'bookings:book' %}" class="hover:underline">Book</a>
-        <a href="{% url 'core:about' %}" class="hover:underline">About</a>
+        <a href="{% url 'testimonials:list' %}" class="hover:underline">Testimonials</a>
         <a href="{% url 'portfolio:before_after' %}" class="hover:underline">Before/After</a>
+        <a href="{% url 'core:about' %}" class="hover:underline">About</a>
+        <a href="{% url 'bookings:book' %}" class="hover:underline">Book</a>
         {% if user.is_authenticated %}
           
         {% else %}

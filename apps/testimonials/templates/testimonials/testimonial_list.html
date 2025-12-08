@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Testimonials — Photography{% endblock %}
+{% block content %}
+<section class="py-10">
+  <div class="container mx-auto px-4 space-y-12">
+    <h1 class="text-3xl font-bold text-center mb-2">Testimonials</h1>
+    <p class="text-center text-gray-300 max-w-2xl mx-auto mb-8">
+      Honest words from couples and families I’ve had the privilege to photograph.
+    </p>
+
+    {% for t in testimonials %}
+      <article class="grid md:grid-cols-2 gap-8 items-center">
+
+        {% if t.photo %}
+          <div>
+            <img src="{{ t.photo.url }}" alt="{{ t.name }}" 
+                 class="w-full rounded-2xl object-cover shadow-lg">
+          </div>
+        {% endif %}
+
+        <div>
+          <p class="text-xl md:text-2xl leading-relaxed italic text-gray-100">
+            “{{ t.short_message }}”
+          </p>
+          <p class="mt-4 font-semibold text-yellow-400">
+            — {{ t.name }}
+            {% if t.location %}
+              <span class="text-gray-400 text-sm"> · {{ t.location }}</span>
+            {% endif %}
+          </p>
+
+          <a href="{% url 'testimonials:detail' t.slug %}"
+             class="inline-block mt-4 text-sm uppercase tracking-wide border border-yellow-400 text-yellow-400 px-4 py-2 rounded-full hover:bg-yellow-400 hover:text-black transition">
+            Read full story
+          </a>
+        </div>
+
+      </article>
+
+      <hr class="border-gray-800">
+    {% empty %}
+      <p class="text-center text-gray-400 mt-10">No testimonials yet. Add some from admin.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

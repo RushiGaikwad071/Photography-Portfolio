@@ -47,6 +47,7 @@ urlpatterns = [
     path("ecommerce/", include(("apps.ecommerce.urls", "ecommerce"), namespace="ecommerce")),
     path("blog/", include(("apps.blog.urls", "blog"), namespace="blog")),
     path("users/", include(("apps.users.urls", "users"), namespace="users")),
+    path("testimonials/", include("apps.testimonials.urls", namespace="testimonials")),
 
     # API endpoints
     path("api/gallery/", include(("apps.gallery.urls", "gallery"), namespace="gallery")),
